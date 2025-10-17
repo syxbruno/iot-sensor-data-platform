@@ -1,10 +1,10 @@
-package com.syxbruno.discovery;
+package com.syxbruno.device;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DiscoveryApplicationTests {
+class DeviceApplicationTests {
 
   @Test
   void contextLoads() {

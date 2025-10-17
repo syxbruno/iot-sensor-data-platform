@@ -1,13 +1,13 @@
-package com.syxbruno.gateway;
+package com.syxbruno.device;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GatewayApplication {
+public class DeviceApplication {
 
   public static void main(String[] args) {
 
-    SpringApplication.run(GatewayApplication.class, args);
+    SpringApplication.run(DeviceApplication.class, args);
   }
 }

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: device
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/iot-sensor-db
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8081
