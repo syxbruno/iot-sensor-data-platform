@@ -30,6 +30,7 @@
     <flyway-core.version>11.13.3</flyway-core.version>
     <flyway-mysql.version>11.13.3</flyway-mysql.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
+    <commons-lang3.version>3.19.0</commons-lang3.version>
     <mysql-connector-j.version>9.4.0</mysql-connector-j.version>
   </properties>
 
@@ -76,6 +77,12 @@
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${org.mapstruct.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
