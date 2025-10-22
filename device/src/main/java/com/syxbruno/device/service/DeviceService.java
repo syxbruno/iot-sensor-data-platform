@@ -30,7 +30,8 @@ public class DeviceService {
   public Device findDeviceByName(String name) {
 
     return repository.findByName(name)
-        .orElseThrow(() -> new ResourceNotFoundException("device with the name: %s, not found".formatted(name)));
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "device with the name: %s, not found".formatted(name)));
   }
 
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {

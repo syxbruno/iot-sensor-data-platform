@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(ResourceNotFoundException.class)
-  private ResponseEntity<RestErrorMessage> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
+  private ResponseEntity<RestErrorMessage> handleNotFound(ResourceNotFoundException ex,
+      HttpServletRequest request) {
 
     RestErrorMessage response = RestErrorMessage.builder()
         .status(HttpStatus.NOT_FOUND)
@@ -28,7 +29,8 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  private ResponseEntity<RestErrorMessage> handleValidationException(MethodArgumentNotValidException ex, HttpServletRequest request) {
+  private ResponseEntity<RestErrorMessage> handleValidationException(
+      MethodArgumentNotValidException ex, HttpServletRequest request) {
 
     RestErrorMessage response = RestErrorMessage.builder()
         .status(HttpStatus.BAD_REQUEST)
@@ -42,7 +44,8 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
-  private ResponseEntity<RestErrorMessage> handleConstraintViolationException(ConstraintViolationException ex, HttpServletRequest request) {
+  private ResponseEntity<RestErrorMessage> handleConstraintViolationException(
+      ConstraintViolationException ex, HttpServletRequest request) {
 
     RestErrorMessage response = RestErrorMessage.builder()
         .status(HttpStatus.BAD_REQUEST)
@@ -61,7 +64,8 @@ public class GlobalExceptionHandler {
 
       if (element.getClassName().startsWith("com.syxbruno.device")) {
 
-        return "%s.%s.%d".formatted(element.getClassName(), element.getMethodName(), element.getLineNumber());
+        return "%s.%s.%d".formatted(element.getClassName(), element.getMethodName(),
+            element.getLineNumber());
       }
     }
     return "";

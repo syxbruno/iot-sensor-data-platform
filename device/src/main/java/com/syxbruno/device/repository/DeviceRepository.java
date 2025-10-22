@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
   Page<Device> findAllByOrderByRegisteredAtDesc(Pageable pageable);
+
   Optional<Device> findByName(String name);
+
   boolean existsByName(String name);
 }

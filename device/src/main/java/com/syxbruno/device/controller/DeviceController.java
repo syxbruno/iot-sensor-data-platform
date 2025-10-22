@@ -50,14 +50,16 @@ public class DeviceController {
   }
 
   @PostMapping
-  public ResponseEntity<DeviceResponse> saveDevice(@RequestBody @Valid DeviceRegisterRequest deviceRequest) {
+  public ResponseEntity<DeviceResponse> saveDevice(
+      @RequestBody @Valid DeviceRegisterRequest deviceRequest) {
 
     DeviceResponse response = service.saveDevice(deviceRequest);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   @PatchMapping("/{name}")
-  public ResponseEntity<DeviceResponse> updateDeviceByName(@PathVariable @NotBlank String name, @RequestBody @Valid DeviceRegisterRequest deviceRequest) {
+  public ResponseEntity<DeviceResponse> updateDeviceByName(@PathVariable @NotBlank String name,
+      @RequestBody @Valid DeviceRegisterRequest deviceRequest) {
 
     DeviceResponse response = service.updateDeviceByName(name, deviceRequest);
     return ResponseEntity.status(HttpStatus.OK).body(response);
