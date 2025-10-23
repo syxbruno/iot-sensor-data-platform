@@ -34,8 +34,8 @@ public class DeviceController {
 
   @GetMapping
   public PagedModel<Device> findAllDevices(
-      @RequestParam(value = "page", defaultValue = "0") @Positive @NotNull int page,
-      @RequestParam(value = "size", defaultValue = "10") @Positive @NotNull int size
+      @RequestParam(value = "page", defaultValue = "0") @Positive(message = "the number must be positive") @NotNull(message = "the field cannot be null") int page,
+      @RequestParam(value = "size", defaultValue = "10") @Positive(message = "the number must be positive") @NotNull(message = "the field cannot be null") int size
   ) {
 
     Page<Device> all = service.findAllDevices(page, size);
@@ -43,7 +43,9 @@ public class DeviceController {
   }
 
   @GetMapping("/{name}")
-  public ResponseEntity<Device> findDeviceByName(@PathVariable @NotBlank String name) {
+  public ResponseEntity<Device> findDeviceByName(
+      @PathVariable @NotBlank(message = "the field cannot be empty or null") String name
+  ) {
 
     Device response = service.findDeviceByName(name);
     return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -58,29 +60,37 @@ public class DeviceController {
   }
 
   @PatchMapping("/{name}")
-  public ResponseEntity<DeviceResponse> updateDeviceByName(@PathVariable @NotBlank String name,
-      @RequestBody @Valid DeviceRegisterRequest deviceRequest) {
+  public ResponseEntity<DeviceResponse> updateDeviceByName(
+      @PathVariable @NotBlank(message = "the field cannot be empty or null") String name,
+      @RequestBody @Valid DeviceRegisterRequest deviceRequest
+  ) {
 
     DeviceResponse response = service.updateDeviceByName(name, deviceRequest);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @DeleteMapping("/{name}")
-  public ResponseEntity<Void> deleteDeviceByName(@PathVariable @NotBlank String name) {
+  public ResponseEntity<Void> deleteDeviceByName(
+      @PathVariable @NotBlank(message = "the field cannot be empty or null") String name
+  ) {
 
     service.deleteDeviceByName(name);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
   @PatchMapping("/active/{name}")
-  public ResponseEntity<String> activeSensor(@PathVariable @NotBlank String name) {
+  public ResponseEntity<String> activeSensor(
+      @PathVariable @NotBlank(message = "the field cannot be empty or null") String name
+  ) {
 
     service.activeSensor(name);
     return ResponseEntity.status(HttpStatus.OK).body("the sensor has been activated successfully");
   }
 
   @PatchMapping("/disable/{name}")
-  public ResponseEntity<String> disableSensor(@PathVariable @NotBlank String name) {
+  public ResponseEntity<String> disableSensor(
+      @PathVariable @NotBlank(message = "the field cannot be empty or null") String name
+  ) {
 
     service.disableSensor(name);
     return ResponseEntity.status(HttpStatus.OK).body("the sensor was successfully disabled");
