@@ -59,6 +59,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -92,6 +93,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <groupId>com.syxbruno</groupId>
   <modelVersion>4.0.0</modelVersion>
 

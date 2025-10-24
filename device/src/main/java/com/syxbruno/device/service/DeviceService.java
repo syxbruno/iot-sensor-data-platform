@@ -6,10 +6,12 @@ import com.syxbruno.device.exception.ResourceNotFoundException;
 import com.syxbruno.device.mapper.DeviceMapper;
 import com.syxbruno.device.model.Device;
 import com.syxbruno.device.repository.DeviceRepository;
+import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,19 +23,23 @@ public class DeviceService {
   private final DeviceRepository repository;
   private final DeviceMapper mapper;
 
+  @Cacheable("AllDevices")
   public Page<Device> findAllDevices(int page, int size) {
 
     PageRequest pageable = PageRequest.of(page, size);
     return repository.findAllByOrderByRegisteredAtDesc(pageable);
   }
 
+  @Cacheable("DeviceByName")
   public Device findDeviceByName(String name) {
 
     return repository.findByName(name)
         .orElseThrow(() -> new ResourceNotFoundException(
-            "device with the name: %s, not found".formatted(name)));
+            "device with the name: %s, not found".formatted(name)
+        ));
   }
 
+  @Transactional
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {
 
     Optional<Device> deviceFound = repository.findByName(deviceRequest.name());
@@ -51,6 +57,7 @@ public class DeviceService {
     return mapper.toDeviceResponse(deviceSaved);
   }
 
+  @Transactional
   public DeviceResponse updateDeviceByName(String name, DeviceRegisterRequest deviceRequest) {
 
     Device deviceSaved = findDeviceByName(name);
@@ -65,11 +72,13 @@ public class DeviceService {
     return mapper.toDeviceResponse(deviceSaved);
   }
 
+  @Transactional
   public void deleteDeviceByName(String name) {
 
-    repository.delete(findDeviceByName(name));
+    repository.deleteByName(findDeviceByName(name).getName());
   }
 
+  @Transactional
   public void activeSensor(String name) {
 
     Device deviceSaved = findDeviceByName(name);
@@ -78,6 +87,7 @@ public class DeviceService {
     repository.save(deviceSaved);
   }
 
+  @Transactional
   public void disableSensor(String name) {
 
     Device deviceSaved = findDeviceByName(name);
