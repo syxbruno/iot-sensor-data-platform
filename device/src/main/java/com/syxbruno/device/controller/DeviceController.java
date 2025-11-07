@@ -6,11 +6,8 @@ import com.syxbruno.device.model.Device;
 import com.syxbruno.device.service.DeviceService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Validated
@@ -33,13 +29,10 @@ public class DeviceController {
   private final DeviceService service;
 
   @GetMapping
-  public PagedModel<Device> findAllDevices(
-      @RequestParam(value = "page", defaultValue = "0") @Positive(message = "the number must be positive") @NotNull(message = "the field cannot be null") int page,
-      @RequestParam(value = "size", defaultValue = "10") @Positive(message = "the number must be positive") @NotNull(message = "the field cannot be null") int size
-  ) {
+  public ResponseEntity<List<Device>> findAllDevices() {
 
-    Page<Device> all = service.findAllDevices(page, size);
-    return new PagedModel<>(all);
+    List<Device> response = service.findAllDevices();
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/{name}")

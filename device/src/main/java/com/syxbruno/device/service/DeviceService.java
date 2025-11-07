@@ -8,12 +8,10 @@ import com.syxbruno.device.model.Device;
 import com.syxbruno.device.repository.DeviceRepository;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,10 +22,9 @@ public class DeviceService {
   private final DeviceMapper mapper;
 
   @Cacheable("AllDevices")
-  public Page<Device> findAllDevices(int page, int size) {
+  public List<Device> findAllDevices() {
 
-    PageRequest pageable = PageRequest.of(page, size);
-    return repository.findAllByOrderByRegisteredAtDesc(pageable);
+    return repository.findAllByOrderByRegisteredAtDesc();
   }
 
   @Cacheable("DeviceByName")
@@ -42,7 +39,7 @@ public class DeviceService {
   @Transactional
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {
 
-    Optional<Device> deviceFound = repository.findByName(deviceRequest.name());
+    Optional<Device> deviceFound = repository.findByName(deviceRequest.getName());
 
     if (deviceFound.isPresent()) {
 
@@ -50,8 +47,8 @@ public class DeviceService {
     }
 
     Device device = mapper.toDevice(deviceRequest);
-    activeSensor(device.getName());
-    device.setRegisteredAt(Instant.from(LocalDateTime.now()));
+    device.setActive(true);
+    device.setRegisteredAt(Instant.now());
     Device deviceSaved = repository.save(device);
 
     return mapper.toDeviceResponse(deviceSaved);
@@ -63,9 +60,9 @@ public class DeviceService {
     Device deviceSaved = findDeviceByName(name);
 
     deviceSaved.setUpdatedAt(Instant.now());
-    deviceSaved.setName(deviceRequest.name());
-    deviceSaved.setLocation(deviceRequest.location());
-    deviceSaved.setType(deviceRequest.type());
+    deviceSaved.setName(deviceRequest.getName());
+    deviceSaved.setLocation(deviceRequest.getLocation());
+    deviceSaved.setType(deviceRequest.getType());
 
     repository.save(deviceSaved);
 

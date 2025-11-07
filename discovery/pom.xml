@@ -17,19 +17,13 @@
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-dependencies</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+    </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>${spring-cloud.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <modelVersion>4.0.0</modelVersion>
   <name>discovery</name>
 
@@ -39,11 +33,6 @@
     <relativePath/>
     <version>0.0.1</version>
   </parent>
-
-  <properties>
-    <java.version>21</java.version>
-    <spring-cloud.version>2025.0.0</spring-cloud.version>
-  </properties>
 
   <version>0.0.1</version>
 </project>

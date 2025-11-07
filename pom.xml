@@ -87,9 +87,23 @@
       </dependency>
 
       <dependency>
+        <artifactId>mapstruct-processor</artifactId>
+        <groupId>org.mapstruct</groupId>
+        <version>${mapstruct-processor.version}</version>
+      </dependency>
+
+      <dependency>
         <artifactId>commons-lang3</artifactId>
         <groupId>org.apache.commons</groupId>
         <version>${commons-lang3.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <groupId>org.springframework.cloud</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-cloud.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -101,6 +115,7 @@
     <module>device</module>
     <module>gateway</module>
     <module>discovery</module>
+    <module>sensor-producer</module>
   </modules>
 
   <name>iot-sensor-data-platform</name>
@@ -119,8 +134,10 @@
     <flyway-core.version>11.13.3</flyway-core.version>
     <flyway-mysql.version>11.13.3</flyway-mysql.version>
     <java.version>21</java.version>
+    <mapstruct-processor.version>1.6.3</mapstruct-processor.version>
     <mysql-connector-j.version>9.4.0</mysql-connector-j.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
+    <spring-cloud.version>2025.0.0</spring-cloud.version>
   </properties>
 
   <version>0.0.1</version>

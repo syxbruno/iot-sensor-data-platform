@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS iot_sensor_db;
+CREATE DATABASE IF NOT EXISTS iot_sensor_db_test;
+
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'user';
+GRANT ALL PRIVILEGES ON iot_sensor_db.* TO 'user'@'%';
+
+CREATE USER IF NOT EXISTS 'userTest'@'%' IDENTIFIED BY 'userTest';
+GRANT ALL PRIVILEGES ON iot_sensor_db_test.* TO 'userTest'@'%';
+
+FLUSH PRIVILEGES;

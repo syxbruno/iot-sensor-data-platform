@@ -3,14 +3,21 @@ services:
     image: mysql:9.4.0
     container_name: iot-sensor-db
     environment:
-      MYSQL_DATABASE: iot-sensor-db
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
       - iot-sensor-db:/var/lib/mysql
+
+  redis:
+    image: redis:8.2.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
 
 volumes:
   iot-sensor-db:
+  redis-data:
