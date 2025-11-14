@@ -1,13 +1,13 @@
 services:
   db:
     image: mysql:9.4.0
-    container_name: iot-sensor-db
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./config/mysql/init:/docker-entrypoint-initdb.d
       - iot-sensor-db:/var/lib/mysql
 
   redis:
@@ -16,8 +16,34 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis-data:/data
+      - iot-sensor-redis-data:/data
+
+  prometheus:
+    image: prom/prometheus:v3.7.3
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - iot-sensor-prometheus:/prometheus
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:12.2.1
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - iot-sensor-grafana:/var/lib/grafana
+    networks:
+      - monitoring
 
 volumes:
   iot-sensor-db:
-  redis-data:
+  iot-sensor-redis:
+  iot-sensor-prometheus:
+  iot-sensor-grafana:
+
+networks:
+  monitoring:

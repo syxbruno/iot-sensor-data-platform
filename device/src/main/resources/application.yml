@@ -6,7 +6,7 @@ spring:
     type: redis
 
   datasource:
-    url: {DB_URL}
+    url: jdbc:mysql://localhost:3306/iot_sensor_db
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
@@ -20,6 +20,23 @@ spring:
 
 server:
   port: 8081
+  address: 0.0.0.0
+
+management:
+  endpoints:
+    enabled-by-default: false
+
+    web:
+      exposure:
+        include: health, prometheus
+
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+
+    prometheus:
+      enabled: true
 
 eureka:
   client:

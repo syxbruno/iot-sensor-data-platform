@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,13 @@ public class DeviceService {
   private final DeviceRepository repository;
   private final DeviceMapper mapper;
 
-  @Cacheable("AllDevices")
+  @Cacheable(value = "AllDevices")
   public List<Device> findAllDevices() {
 
     return repository.findAllByOrderByRegisteredAtDesc();
   }
 
-  @Cacheable("DeviceByName")
+  @Cacheable(value = "DeviceByName", key = "#name")
   public Device findDeviceByName(String name) {
 
     return repository.findByName(name)
@@ -37,6 +38,7 @@ public class DeviceService {
   }
 
   @Transactional
+  @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {
 
     Optional<Device> deviceFound = repository.findByName(deviceRequest.getName());
@@ -55,6 +57,7 @@ public class DeviceService {
   }
 
   @Transactional
+  @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse updateDeviceByName(String name, DeviceRegisterRequest deviceRequest) {
 
     Device deviceSaved = findDeviceByName(name);
@@ -70,12 +73,14 @@ public class DeviceService {
   }
 
   @Transactional
+  @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void deleteDeviceByName(String name) {
 
     repository.deleteByName(findDeviceByName(name).getName());
   }
 
   @Transactional
+  @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void activeSensor(String name) {
 
     Device deviceSaved = findDeviceByName(name);
@@ -85,6 +90,7 @@ public class DeviceService {
   }
 
   @Transactional
+  @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void disableSensor(String name) {
 
     Device deviceSaved = findDeviceByName(name);
