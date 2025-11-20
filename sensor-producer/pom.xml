@@ -4,35 +4,27 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <artifactId>discovery</artifactId>
+  <artifactId>sensor-producer</artifactId>
 
   <dependencies>
     <dependency>
-      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
 
     <dependency>
-      <artifactId>spring-boot-starter-test</artifactId>
+      <artifactId>spring-boot-starter-validation</artifactId>
       <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-kafka</artifactId>
+      <groupId>org.springframework.kafka</groupId>
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>2023.0.3</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <modelVersion>4.0.0</modelVersion>
-  <name>discovery</name>
+  <name>sensor-producer</name>
   <packaging>jar</packaging>
 
   <parent>

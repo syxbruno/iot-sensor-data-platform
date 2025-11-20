@@ -1,13 +1,15 @@
 services:
   db:
-    image: mysql:9.4.0
+    image: mysql:8.0.36
     container_name: db
     environment:
+      MYSQL_DATABASE: iot_sensor_db
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
-      - ./config/mysql/init:/docker-entrypoint-initdb.d
       - iot-sensor-db:/var/lib/mysql
 
   redis:
@@ -16,7 +18,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - iot-sensor-redis-data:/data
+      - iot-sensor-redis:/data
 
   prometheus:
     image: prom/prometheus:v3.7.3

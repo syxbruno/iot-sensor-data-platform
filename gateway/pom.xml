@@ -8,7 +8,12 @@
 
   <dependencies>
     <dependency>
-      <artifactId>spring-cloud-starter-gateway-server-webmvc</artifactId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-starter-gateway</artifactId>
       <groupId>org.springframework.cloud</groupId>
     </dependency>
 
@@ -24,25 +29,14 @@
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>${spring-cloud.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <modelVersion>4.0.0</modelVersion>
   <name>gateway</name>
+  <packaging>jar</packaging>
 
   <parent>
     <artifactId>iot-sensor-data-platform</artifactId>
     <groupId>com.syxbruno</groupId>
-    <relativePath/>
+    <relativePath>../pom.xml</relativePath>
     <version>0.0.1</version>
   </parent>
 

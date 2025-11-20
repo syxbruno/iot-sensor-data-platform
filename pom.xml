@@ -9,6 +9,27 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>false</skipTests>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <annotationProcessorPaths>
@@ -58,10 +79,36 @@
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <artifactId>testcontainers</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>mysql</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <artifactId>testcontainers-bom</artifactId>
+        <groupId>org.testcontainers</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${testcontainers-bom.version}</version>
+      </dependency>
+
       <dependency>
         <artifactId>mysql-connector-j</artifactId>
         <groupId>com.mysql</groupId>
@@ -103,7 +150,7 @@
         <groupId>org.springframework.cloud</groupId>
         <scope>import</scope>
         <type>pom</type>
-        <version>${spring-cloud.version}</version>
+        <version>${spring-cloud-dependencies.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -126,7 +173,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <relativePath/>
-    <version>3.5.6</version>
+    <version>3.5.7</version>
   </parent>
 
   <properties>
@@ -137,7 +184,8 @@
     <mapstruct-processor.version>1.6.3</mapstruct-processor.version>
     <mysql-connector-j.version>9.4.0</mysql-connector-j.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
-    <spring-cloud.version>2025.0.0</spring-cloud.version>
+    <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
+    <testcontainers-bom.version>1.20.2</testcontainers-bom.version>
   </properties>
 
   <version>0.0.1</version>

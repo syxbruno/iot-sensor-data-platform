@@ -51,8 +51,8 @@ public class DeviceService {
     Device device = mapper.toDevice(deviceRequest);
     device.setActive(true);
     device.setRegisteredAt(Instant.now());
-    Device deviceSaved = repository.save(device);
 
+    Device deviceSaved = repository.save(device);
     return mapper.toDeviceResponse(deviceSaved);
   }
 
@@ -68,7 +68,6 @@ public class DeviceService {
     deviceSaved.setType(deviceRequest.getType());
 
     repository.save(deviceSaved);
-
     return mapper.toDeviceResponse(deviceSaved);
   }
 
@@ -85,7 +84,6 @@ public class DeviceService {
 
     Device deviceSaved = findDeviceByName(name);
     deviceSaved.setActive(true);
-
     repository.save(deviceSaved);
   }
 
@@ -95,7 +93,6 @@ public class DeviceService {
 
     Device deviceSaved = findDeviceByName(name);
     deviceSaved.setActive(false);
-
     repository.save(deviceSaved);
   }
 }
