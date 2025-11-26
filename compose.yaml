@@ -5,7 +5,7 @@ services:
     environment:
       MYSQL_DATABASE: iot_sensor_db
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: ${DB_USER}
+      MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
@@ -28,8 +28,6 @@ services:
     volumes:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - iot-sensor-prometheus:/prometheus
-    networks:
-      - monitoring
 
   grafana:
     image: grafana/grafana:12.2.1
@@ -38,14 +36,9 @@ services:
       - "3000:3000"
     volumes:
       - iot-sensor-grafana:/var/lib/grafana
-    networks:
-      - monitoring
 
 volumes:
   iot-sensor-db:
   iot-sensor-redis:
   iot-sensor-prometheus:
   iot-sensor-grafana:
-
-networks:
-  monitoring:

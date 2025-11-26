@@ -1,0 +1,233 @@
+openapi: 3.0.1
+info:
+  title: service device
+  description: this microservice is part of the iot-sensor-data-platform and is responsible for managing devices/sensors
+  version: 0.0.1
+  contact:
+    name: Bruno Oliveira
+    url: https://www.linkedin.com/in/syxbrunoo/
+  license:
+    name: MIT License
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: http://localhost:8080
+  - description: iot-sensor-data-platform
+paths:
+  /device:
+    get:
+      tags:
+        - Device
+      summary: Retrieve all devices/sensors from the database
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+    post:
+      tags:
+        - Device
+      summary: Create and save a new device/sensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceRegisterRequest'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+  /device/{name}:
+    get:
+      tags:
+        - Device
+      summary: Retrieve a device/sensor by its name
+      parameters:
+        - name: name
+          in: path
+          schema:
+            type: String
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorMessage'
+    patch:
+      tags:
+        - Device
+      summary: Update a device/sensor based on its name
+      parameters:
+        - name: name
+          in: path
+          schema:
+            type: String
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceRegisterRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorMessage'
+    delete:
+      tags:
+        - Device
+      summary: Delete a device/sensor by name
+      parameters:
+        - name: name
+          in: path
+          schema:
+            type: String
+          required: true
+      responses:
+        200:
+          description: No Content
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorMessage'
+  /device/active/{name}:
+    patch:
+      tags:
+        - Device
+      summary: Set the device/sensor status to active
+      parameters:
+        - name: name
+          in: path
+          schema:
+            type: String
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorMessage'
+  /device/disable/{name}:
+    patch:
+      tags:
+        - Device
+      summary: Set the device/sensor status to disabled
+      parameters:
+        - name: name
+          in: path
+          schema:
+            type: String
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorMessage'
+components:
+  schemas:
+    Device:
+      type: object
+      properties:
+        id:
+          type: Long
+        name:
+          type: String
+        location:
+          type: Location
+        type:
+          type: TypeSensor
+        active:
+          type: Boolean
+        registeredAt:
+          type: Instant
+        updatedAt:
+          type: Instant
+    DeviceResponse:
+      type: object
+      properties:
+        name:
+          type: String
+        location:
+          type: Location
+        type:
+          type: TypeSensor
+        active:
+          type: Boolean
+        registeredAt:
+          type: Instant
+        updatedAt:
+          type: Instant
+    DeviceRegisterRequest:
+      type: object
+      properties:
+        name:
+          type: String
+        location:
+          type: Location
+        type:
+          type: TypeSensor
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: Double
+        longitude:
+          type: Double
+    TypeSensor:
+      type: String
+      enum:
+        - TEMPERATURE_HUMIDITY
+        - TEMPERATURE_ONLY
+        - HUMIDITY_ONLY
+    RestErrorMessage:
+      type: object
+      properties:
+        status:
+          type: HttpStatus
+        message:
+          type: String
+        path:
+          type: String
+        origin:
+          type: String
+        timestamp:
+          type: Instant

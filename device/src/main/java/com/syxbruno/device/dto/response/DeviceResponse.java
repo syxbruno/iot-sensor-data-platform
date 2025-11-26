@@ -19,4 +19,5 @@ public class DeviceResponse {
   private TypeSensor type;
   private Boolean active;
   private Instant registeredAt;
+  private Instant updatedAt;
 }

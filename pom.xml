@@ -102,6 +102,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+      </dependency>
+
+      <dependency>
         <artifactId>testcontainers-bom</artifactId>
         <groupId>org.testcontainers</groupId>
         <scope>import</scope>
@@ -186,6 +192,8 @@
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
     <testcontainers-bom.version>1.20.2</testcontainers-bom.version>
+    <springdoc-openapi-starter-webmvc-ui.version>2.8.13
+    </springdoc-openapi-starter-webmvc-ui.version>
   </properties>
 
   <version>0.0.1</version>

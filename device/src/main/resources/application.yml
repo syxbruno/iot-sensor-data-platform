@@ -38,6 +38,11 @@ management:
     prometheus:
       enabled: true
 
+springdoc:
+  swagger-ui:
+    url: /docs/device-api.yml
+    disable-swagger-default-url: true
+
 eureka:
   client:
     fetch-registry: true
