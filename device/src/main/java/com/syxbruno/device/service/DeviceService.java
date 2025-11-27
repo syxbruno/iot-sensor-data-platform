@@ -41,14 +41,13 @@ public class DeviceService {
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {
 
-    Optional<Device> deviceFound = repository.findByName(deviceRequest.getName());
+    Device device = mapper.toDevice(deviceRequest);
 
-    if (deviceFound.isPresent()) {
+    if (verifyExists(device)) {
 
-      return mapper.toDeviceResponse(deviceFound.get());
+      return mapper.toDeviceResponse(device);
     }
 
-    Device device = mapper.toDevice(deviceRequest);
     device.setActive(true);
     device.setRegisteredAt(Instant.now());
 
@@ -60,8 +59,14 @@ public class DeviceService {
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse updateDeviceByName(String name, DeviceRegisterRequest deviceRequest) {
 
-    Device deviceSaved = findDeviceByName(name);
+    Device device = mapper.toDevice(deviceRequest);
 
+    if (verifyExists(device)) {
+
+      return mapper.toDeviceResponse(device);
+    }
+
+    Device deviceSaved = findDeviceByName(name);
     deviceSaved.setUpdatedAt(Instant.now());
     deviceSaved.setName(deviceRequest.getName());
     deviceSaved.setLocation(deviceRequest.getLocation());
@@ -94,5 +99,17 @@ public class DeviceService {
     Device deviceSaved = findDeviceByName(name);
     deviceSaved.setActive(false);
     repository.save(deviceSaved);
+  }
+
+  private Boolean verifyExists(Device device) {
+
+    Optional<Device> deviceFound = repository.findByName(device.getName());
+
+    if (deviceFound.isPresent()) {
+
+      return true;
+    }
+
+    return false;
   }
 }
