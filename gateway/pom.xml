@@ -13,7 +13,7 @@
     </dependency>
 
     <dependency>
-      <artifactId>spring-cloud-starter-gateway</artifactId>
+      <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
       <groupId>org.springframework.cloud</groupId>
     </dependency>
 

@@ -10,8 +10,5 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
   List<Device> findAllByOrderByRegisteredAtDesc();
 
   Optional<Device> findByName(String name);
-
-  boolean existsByName(String name);
-
   void deleteByName(String name);
 }
