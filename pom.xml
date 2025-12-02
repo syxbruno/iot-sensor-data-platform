@@ -168,7 +168,6 @@
     <module>device</module>
     <module>gateway</module>
     <module>discovery</module>
-    <module>sensor-producer</module>
   </modules>
 
   <name>iot-sensor-data-platform</name>

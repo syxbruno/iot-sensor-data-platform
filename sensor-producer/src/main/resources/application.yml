@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: sensor-producer
-
-server:
-  port: 8083
