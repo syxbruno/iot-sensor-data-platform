@@ -1,6 +1,8 @@
 name: CI - iot-sensor-data-platform
 
 on:
+  push:
+    branches: ["master"]
   pull_request:
     branches: ["master"]
 
