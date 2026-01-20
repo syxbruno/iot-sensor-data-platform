@@ -45,7 +45,8 @@ public class DeviceService {
 
     if (verifyExists(device)) {
 
-      return mapper.toDeviceResponse(device);
+      Device deviceByName = findDeviceByName(deviceRequest.getName());
+      return mapper.toDeviceResponse(deviceByName);
     }
 
     device.setActive(true);
@@ -101,15 +102,9 @@ public class DeviceService {
     repository.save(deviceSaved);
   }
 
-  private Boolean verifyExists(Device device) {
+  public Boolean verifyExists(Device device) {
 
     Optional<Device> deviceFound = repository.findByName(device.getName());
-
-    if (deviceFound.isPresent()) {
-
-      return true;
-    }
-
-    return false;
+    return deviceFound.isPresent();
   }
 }

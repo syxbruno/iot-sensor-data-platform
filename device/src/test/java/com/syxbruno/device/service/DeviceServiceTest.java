@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -103,8 +104,9 @@ public class DeviceServiceTest {
     DeviceRegisterRequest deviceToSave = DEVICE_REGISTER_REQUEST;
     DeviceResponse expectedResponse = DEVICE_RESPONSE;
 
-    Mockito.when(deviceMapper.toDeviceResponse(device)).thenReturn(expectedResponse);
+    Mockito.when(deviceMapper.toDevice(deviceToSave)).thenReturn(device);
     Mockito.when(deviceRepository.findByName(device.getName())).thenReturn(Optional.of(device));
+    Mockito.when(deviceMapper.toDeviceResponse(device)).thenReturn(expectedResponse);
 
     DeviceResponse sut = deviceService.saveDevice(deviceToSave);
 
@@ -120,9 +122,10 @@ public class DeviceServiceTest {
     DeviceRegisterRequest deviceToSave = DEVICE_REGISTER_REQUEST;
     DeviceResponse expectedResponse = DEVICE_RESPONSE;
 
-    Mockito.when(deviceRepository.findByName(deviceToSave.getName())).thenReturn(Optional.empty());
+    Mockito.when(deviceMapper.toDevice(deviceToSave)).thenReturn(device);
     Mockito.when(deviceRepository.findByName(deviceToSave.getName()))
-        .thenReturn(Optional.of(device));
+        .thenReturn(Optional.empty(), Optional.of(device));
+    Mockito.when(deviceRepository.save(device)).thenReturn(device);
     Mockito.when(deviceMapper.toDeviceResponse(device)).thenReturn(expectedResponse);
 
     DeviceResponse sut = deviceService.saveDevice(deviceToSave);
@@ -136,14 +139,13 @@ public class DeviceServiceTest {
   void updateDeviceByName_ReceiveNameAndDeviceRegisterRequest_ReturnDeviceUpdated() {
 
     Device device = DEVICE_1;
-    String deviceName = device.getName();
 
-    Mockito.when(deviceRepository.findByName(deviceName)).thenReturn(Optional.of(device));
-    Mockito.when(deviceMapper.toDeviceResponse(Mockito.any(Device.class)))
-        .thenReturn(DEVICE_RESPONSE_UPDATED);
+    Mockito.when(deviceMapper.toDevice(DEVICE_REGISTER_REQUEST_TO_UPDATE)).thenReturn(device);
+    Mockito.when(deviceRepository.findByName(device.getName())).thenReturn(Optional.of(device));
+    Mockito.when(deviceMapper.toDeviceResponse(device)).thenReturn(DEVICE_RESPONSE_UPDATED);
 
     DeviceResponse sut = deviceService
-        .updateDeviceByName(deviceName, DEVICE_REGISTER_REQUEST_TO_UPDATE);
+        .updateDeviceByName(device.getName(), DEVICE_REGISTER_REQUEST_TO_UPDATE);
 
     Assertions.assertThat(sut.getName()).isEqualTo("deviceToUpdate");
     Assertions.assertThat(sut.getLocation()).isEqualTo(new Location(-22.2222222, -22.2222222));

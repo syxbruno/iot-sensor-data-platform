@@ -9,6 +9,5 @@ import org.mapstruct.Mapper;
 public interface DeviceMapper {
 
   DeviceResponse toDeviceResponse(Device device);
-
-  Device toDevice(DeviceRegisterRequest device);
+  Device toDevice(DeviceRegisterRequest deviceRegisterRequest);
 }

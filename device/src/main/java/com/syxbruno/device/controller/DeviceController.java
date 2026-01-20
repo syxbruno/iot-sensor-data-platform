@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Validated
 @RestController
+@RequestMapping("/device")
 @RequiredArgsConstructor
 public class DeviceController {
 
