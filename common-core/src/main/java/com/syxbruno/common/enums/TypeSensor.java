@@ -1,4 +1,4 @@
-package com.syxbruno.device.enums;
+package com.syxbruno.common.enums;
 
 public enum TypeSensor {
 
