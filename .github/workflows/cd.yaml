@@ -1,0 +1,36 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: java configuration
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: build jar
+        run: mvn -B package -DskipTests
+
+      - name: upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: iot-sensor-artifacts
+          path: '**/target/*.jar'
+
+      - name: build docker images
+        run: mvn -B jib:build
+        env:
+          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+          DOCKER_HUB_SECRET: ${{ secrets.DOCKER_HUB_SECRET }}

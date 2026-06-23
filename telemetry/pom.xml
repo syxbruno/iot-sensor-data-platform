@@ -63,7 +63,12 @@
         <artifactId>jib-maven-plugin</artifactId>
         <configuration>
           <to>
-            <image>${project.artifactId}:${project.version}</image>
+            <image>syxbruno/${project.artifactId}:${project.version}</image>
+
+            <auth>
+              <username>${env.DOCKER_HUB_USER}</username>
+              <password>${env.DOCKER_HUB_SECRET}</password>
+            </auth>
           </to>
         </configuration>
       </plugin>

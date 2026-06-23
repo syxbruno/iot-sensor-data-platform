@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on:
   pull_request:
@@ -20,21 +20,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: compile project
-        run: mvn compile
-
       - name: run unit tests
         run: mvn -B test
 
       - name: run integration tests
-        run: mvn failsafe:integration-test failsafe:verify
-
-      - name: build jar
-        run: mvn package -DskipTests
-
-      # mandar o .jar para o github, para download
-
-      - name: build docker image
-        run: mvn jib:dockerBuild
-
-      # publicar o image file no docker hub
+        run: mvn -B failsafe:integration-test failsafe:verify
