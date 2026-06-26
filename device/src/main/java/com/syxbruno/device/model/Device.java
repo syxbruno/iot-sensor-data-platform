@@ -1,6 +1,6 @@
 package com.syxbruno.device.model;
 
-import com.syxbruno.device.enums.TypeSensor;
+import com.syxbruno.common.enums.TypeSensor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

@@ -2,7 +2,7 @@ package com.syxbruno.device.commons.constant;
 
 import com.syxbruno.device.dto.request.DeviceRegisterRequest;
 import com.syxbruno.device.dto.response.DeviceResponse;
-import com.syxbruno.device.enums.TypeSensor;
+import com.syxbruno.common.enums.TypeSensor;
 import com.syxbruno.device.model.Device;
 import com.syxbruno.device.model.Location;
 import org.springframework.stereotype.Component;

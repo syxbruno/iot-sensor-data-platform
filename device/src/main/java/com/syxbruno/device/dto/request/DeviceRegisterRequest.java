@@ -1,6 +1,6 @@
 package com.syxbruno.device.dto.request;
 
-import com.syxbruno.device.enums.TypeSensor;
+import com.syxbruno.common.enums.TypeSensor;
 import com.syxbruno.device.model.Location;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

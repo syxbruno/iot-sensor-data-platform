@@ -1,6 +1,6 @@
 package com.syxbruno.device.dto.response;
 
-import com.syxbruno.device.enums.TypeSensor;
+import com.syxbruno.common.enums.TypeSensor;
 import com.syxbruno.device.model.Location;
 import java.time.Instant;
 import lombok.AllArgsConstructor;

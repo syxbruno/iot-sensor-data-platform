@@ -8,7 +8,7 @@ import static com.syxbruno.device.commons.constant.ConstantDevice.DEVICE_RESPONS
 
 import com.syxbruno.device.dto.request.DeviceRegisterRequest;
 import com.syxbruno.device.dto.response.DeviceResponse;
-import com.syxbruno.device.enums.TypeSensor;
+import com.syxbruno.common.enums.TypeSensor;
 import com.syxbruno.device.exception.ResourceNotFoundException;
 import com.syxbruno.device.mapper.DeviceMapper;
 import com.syxbruno.device.model.Device;
