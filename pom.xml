@@ -33,28 +33,17 @@
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <flyway-mysql.version>11.13.3</flyway-mysql.version>
     <commons-lang3.version>3.19.0</commons-lang3.version>
+    <testcontainers.version>2.0.5</testcontainers.version>
     <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
     <mysql-connector-j.version>9.4.0</mysql-connector-j.version>
-    <testcontainers-bom.version>1.20.2</testcontainers-bom.version>
     <mapstruct-processor.version>1.6.3</mapstruct-processor.version>
+    <testcontainersmysql.version>1.21.4</testcontainersmysql.version>
     <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
+    <testcontainers-junit-jupiter.version>2.0.5</testcontainers-junit-jupiter.version>
     <springdoc-openapi-starter-webmvc-ui.version>2.8.13</springdoc-openapi-starter-webmvc-ui.version>
   </properties>
 
   <dependencies>
-    <!-- Spring boot starter -->
-    <dependency>
-      <artifactId>spring-boot-starter</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <!-- Spring boot starter test -->
-    <dependency>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
-    </dependency>
-
     <!-- Lombok -->
     <dependency>
       <artifactId>lombok</artifactId>
@@ -65,14 +54,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Spring DevTools -->
-      <dependency>
-        <artifactId>spring-boot-devtools</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <optional>true</optional>
-        <scope>runtime</scope>
-      </dependency>
-
       <!-- Swagger -->
       <dependency>
         <groupId>org.springdoc</groupId>
@@ -133,34 +114,28 @@
         <version>${spring-cloud-dependencies.version}</version>
       </dependency>
 
-      <!-- Testcontainers -->
+      <!-- Testcontainers Core -->
       <dependency>
+        <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers</artifactId>
-        <groupId>org.testcontainers</groupId>
-        <scope>test</scope>
-      </dependency>
-
-      <!-- Testcontainers MySQL -->
-      <dependency>
-        <artifactId>mysql</artifactId>
-        <groupId>org.testcontainers</groupId>
+        <version>${testcontainers.version}</version>
         <scope>test</scope>
       </dependency>
 
       <!-- Testcontainers + JUnit 5 -->
       <dependency>
-        <artifactId>junit-jupiter</artifactId>
         <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-junit-jupiter</artifactId>
+        <version>${testcontainers-junit-jupiter.version}</version>
         <scope>test</scope>
       </dependency>
 
-      <!-- Testcontainers BOM -->
+      <!-- Testcontainers MySQL -->
       <dependency>
-        <artifactId>testcontainers-bom</artifactId>
         <groupId>org.testcontainers</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>${testcontainers-bom.version}</version>
+        <artifactId>mysql</artifactId>
+        <version>${testcontainersmysql.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -207,20 +182,6 @@
           </annotationProcessorPaths>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
-      </plugin>
-
-      <!-- Spring Boot Maven Plugin -->
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-            </exclude>
-          </excludes>
-        </configuration>
-        <groupId>org.springframework.boot</groupId>
       </plugin>
     </plugins>
 

@@ -18,6 +18,18 @@
   <name>telemetry</name>
 
   <dependencies>
+    <!-- Spring boot starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+    <!-- Spring boot starter test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+
     <!-- Spring Web -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -58,6 +70,21 @@
 
   <build>
     <plugins>
+      <!-- Spring Boot Maven Plugin -->
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+
+      <!-- Google JIB -->
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>

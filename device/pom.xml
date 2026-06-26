@@ -18,6 +18,18 @@
   <name>device</name>
 
   <dependencies>
+    <!-- Spring boot starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+    <!-- Spring boot starter test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+
     <!-- Swagger -->
     <dependency>
       <groupId>org.springdoc</groupId>
@@ -58,6 +70,7 @@
     <dependency>
       <artifactId>spring-boot-devtools</artifactId>
       <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
     </dependency>
 
     <!-- Spring Actuator -->
@@ -101,10 +114,51 @@
       <artifactId>mapstruct-processor</artifactId>
       <groupId>org.mapstruct</groupId>
     </dependency>
+
+    <!-- Meu common core -->
+    <dependency>
+      <groupId>com.syxbruno</groupId>
+      <artifactId>common-core</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- Testcontainers -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+    </dependency>
+
+    <!-- Testcontainers + JUnit 5 -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers-junit-jupiter</artifactId>
+    </dependency>
+
+    <!-- Testcontainers MySQL -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>mysql</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Spring Boot Maven Plugin -->
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+
+      <!-- Google JIB -->
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
