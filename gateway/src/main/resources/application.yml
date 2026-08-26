@@ -3,10 +3,11 @@ spring:
     gateway:
       server:
         webflux:
-          discovery:
-            locator:
-              enabled: true
-              lower-case-service-id: true
+          routes:
+            - id: device
+              uri: lb://DEVICE
+              predicates:
+                - Path=/device/**
 
   application:
     name: gateway

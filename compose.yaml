@@ -4,9 +4,9 @@ services:
     container_name: db
     environment:
       MYSQL_DATABASE: iot_sensor_db
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ENV_DB_ROOT_PASSWORD}
+      MYSQL_USER: ${ENV_DB_USERNAME}
+      MYSQL_PASSWORD: ${ENV_DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
