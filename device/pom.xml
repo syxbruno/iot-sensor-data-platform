@@ -115,14 +115,6 @@
       <groupId>org.mapstruct</groupId>
     </dependency>
 
-    <!-- Meu common core -->
-    <dependency>
-      <groupId>com.syxbruno</groupId>
-      <artifactId>common-core</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
-    </dependency>
-
     <!-- Testcontainers -->
     <dependency>
       <groupId>org.testcontainers</groupId>

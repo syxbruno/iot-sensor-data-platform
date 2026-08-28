@@ -21,7 +21,6 @@
 
   <modules>
     <module>discovery</module>
-    <module>common-core</module>
     <module>device</module>
     <module>telemetry</module>
     <module>gateway</module>
