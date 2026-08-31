@@ -1,6 +1,5 @@
 package com.syxbruno.telemetry.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
@@ -26,6 +23,6 @@ public class Telemetry {
     private long id;
     private long sensorId;
     private Instant timestamp;
-    @JdbcTypeCode(SqlTypes.JSON)
-    private JsonNode data;
+    private String field;
+    private double value;
 }
