@@ -37,7 +37,6 @@ public class DeviceService {
         ));
   }
 
-  @Transactional
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse saveDevice(DeviceRegisterRequest deviceRequest) {
 
@@ -56,7 +55,6 @@ public class DeviceService {
     return mapper.toDeviceResponse(deviceSaved);
   }
 
-  @Transactional
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public DeviceResponse updateDeviceByName(String name, DeviceRegisterRequest deviceRequest) {
 
@@ -77,14 +75,12 @@ public class DeviceService {
     return mapper.toDeviceResponse(deviceSaved);
   }
 
-  @Transactional
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void deleteDeviceByName(String name) {
 
     repository.deleteByName(findDeviceByName(name).getName());
   }
 
-  @Transactional
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void activeSensor(String name) {
 
@@ -93,7 +89,6 @@ public class DeviceService {
     repository.save(deviceSaved);
   }
 
-  @Transactional
   @CacheEvict(value = {"AllDevices", "DeviceByName"}, allEntries = true)
   public void disableSensor(String name) {
 

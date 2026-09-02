@@ -21,7 +21,7 @@ public class Telemetry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long sensorId;
+    private String sensorName;
     private Instant timestamp;
     private String field;
     private double value;

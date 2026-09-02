@@ -1,6 +1,6 @@
 CREATE TABLE telemetry (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sensor_id BIGINT NOT NULL,
+    sensor_name VARCHAR(100) NOT NULL,
     field VARCHAR(100) NOT NULL,
     value DOUBLE NOT NULL,
     timestamp TIMESTAMP NOT NULL
