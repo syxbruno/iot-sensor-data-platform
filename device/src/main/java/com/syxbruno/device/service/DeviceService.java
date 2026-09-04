@@ -13,6 +13,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,18 +25,22 @@ public class DeviceService {
   private final DeviceMapper mapper;
 
   @Cacheable(value = "AllDevices")
-  public List<Device> findAllDevices() {
+  public Page<DeviceResponse> findAllDevices(Pageable pageable) {
 
-    return repository.findAllByOrderByRegisteredAtDesc();
+    Page<Device> pageDevice = repository.findAllByOrderByRegisteredAtDesc(pageable);
+
+    return pageDevice.map(mapper::toDeviceResponse);
   }
 
   @Cacheable(value = "DeviceByName", key = "#name")
-  public Device findDeviceByName(String name) {
+  public DeviceResponse findDeviceByName(String name) {
 
-    return repository.findByName(name)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "device with the name: %s, not found".formatted(name)
-        ));
+      Device device = repository.findByName(name)
+              .orElseThrow(() -> new ResourceNotFoundException(
+                      "device with the name: %s, not found".formatted(name)
+              ));
+
+      return mapper.toDeviceResponse(device);
   }
 
   @Transactional

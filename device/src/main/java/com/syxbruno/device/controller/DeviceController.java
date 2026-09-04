@@ -8,6 +8,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,18 +32,18 @@ public class DeviceController {
   private final DeviceService service;
 
   @GetMapping
-  public ResponseEntity<List<Device>> findAllDevices() {
+  public ResponseEntity<Page<DeviceResponse>> findAllDevices(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-    List<Device> response = service.findAllDevices();
+    Page<DeviceResponse> response = service.findAllDevices(pageable);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/{name}")
-  public ResponseEntity<Device> findDeviceByName(
+  public ResponseEntity<DeviceResponse> findDeviceByName(
       @PathVariable @NotBlank(message = "the field cannot be empty or null") String name
   ) {
 
-    Device response = service.findDeviceByName(name);
+    DeviceResponse response = service.findDeviceByName(name);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
