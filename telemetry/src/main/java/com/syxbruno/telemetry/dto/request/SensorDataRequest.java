@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SensorData {
+public class SensorDataRequest {
 
     @NotBlank(message = "the name sensor cannot be null or empty")
     private String sensorName;
